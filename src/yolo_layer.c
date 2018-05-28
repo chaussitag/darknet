@@ -122,6 +122,13 @@ void delta_yolo_class(float *output, float *delta, int index, int class, int cla
     }
 }
 
+// 计算某个预测框的某个预测值在l.ouput所指内存块里的位置
+// location: 哪个预测框，预测框一共有l.w * l.h * l.n个(l.n表示特征图每个像素处预测框的个数)， localtion取值范围是[0, l.w * l.h * l.n)
+// entry: location所指定预测框的哪个值， 每个预测框有(4 + l.classes + 1)个值
+// l.ouput所指内存块存放了所有预测框的预测值， 其组织结构如下:
+// [特征图所有位置的第1个框，特征图所有位置的第2个框， ... ... 特征图所有位置的第l.n个框]
+// 特征图所有位置的第i个框， 如下组织:
+// [所有像素处的x值， 所有像素处的y值， 所有像素处的w值， 所有像素处的h值， 所有像素处的objectness score值， 所有像素处第一类分数，... ... 所有像素处第l.classes类分数]
 static int entry_index(layer l, int batch, int location, int entry)
 {
     int n =   location / (l.w*l.h);
