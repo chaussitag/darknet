@@ -26,6 +26,13 @@ void read_all(int fd, char *buffer, size_t bytes);
 void write_all(int fd, char *buffer, size_t bytes);
 int read_all_fail(int fd, char *buffer, size_t bytes);
 int write_all_fail(int fd, char *buffer, size_t bytes);
+
+// ========================================================================
+// 20180502, daiguozhou added
+// replace the suffix of a image path to some other specified suffix
+int replace_image_suffix(const char* path, const char* new_suffix, char* output);
+// ========================================================================
+
 void find_replace(char *str, char *orig, char *rep, char *output);
 void malloc_error();
 void file_error(char *s);

@@ -213,6 +213,54 @@ void pm(int M, int N, float *A)
     printf("\n");
 }
 
+// =================================================================
+/***
+ * 20180502, daiguozhou added
+ *
+ * replace the suffix of a image path to some other specified suffix
+ *
+ * @param path: the file path whose suffix will be replaced
+ * @param new_suffix: the new suffix
+ * @param output: stores a new path with the input path's suffix been replaced,
+ *                or the input path if there's no suffix found.
+ * @return 0 if the suffix was replaced, otherwise -1
+ */
+int replace_image_suffix(const char* path, const char* new_suffix, char* output) {
+
+    // ====================================================================
+    // 20180502, daiguozhou modified, support more image extensions
+    static const char* possible_image_suffix[] = {
+        ".jpg", ".png", ".jpeg", ".JPG", ".PNG", ".JPEG"
+    };
+    static const int num_suffix =
+        sizeof(possible_image_suffix) / sizeof(possible_image_suffix[0]);
+    // ====================================================================
+
+    char buffer[4096] = {0};
+    sprintf(buffer, "%s", path);
+    char* p;
+    if (!(p = strrchr(buffer, '.'))) {
+        // return the original path
+        sprintf(output, "%s", path);
+        return -1;
+    }
+
+    // check whether or not the found suffix is a possible image suffix
+    int i;
+    for (i = 0; i < num_suffix; ++i) {
+      if (strcmp(p, possible_image_suffix[i]) == 0) {
+        *p = '\0';
+        sprintf(output, "%s%s", buffer, new_suffix);
+        return 0;
+      }
+    }
+
+    // return the original path
+    sprintf(output, "%s", path);
+    return -1;
+}
+// =================================================================
+
 void find_replace(char *str, char *orig, char *rep, char *output)
 {
     char buffer[4096] = {0};

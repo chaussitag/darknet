@@ -412,10 +412,15 @@ void fill_truth_detection(char *path, int num_boxes, float *truth, int classes, 
     find_replace(labelpath, "JPEGImages", "labels", labelpath);
 
     find_replace(labelpath, "raw", "labels", labelpath);
-    find_replace(labelpath, ".jpg", ".txt", labelpath);
-    find_replace(labelpath, ".png", ".txt", labelpath);
-    find_replace(labelpath, ".JPG", ".txt", labelpath);
-    find_replace(labelpath, ".JPEG", ".txt", labelpath);
+    // ===========================================================
+    // 20180502, daiguozhou modified, support more image extensions
+    replace_image_suffix(labelpath, ".txt", labelpath);
+    //printf("label path for image %s : %s\n", path, labelpath);
+//    find_replace(labelpath, ".jpg", ".txt", labelpath);
+//    find_replace(labelpath, ".png", ".txt", labelpath);
+//    find_replace(labelpath, ".JPG", ".txt", labelpath);
+//    find_replace(labelpath, ".JPEG", ".txt", labelpath);
+    // ===========================================================
     int count = 0;
     box_label *boxes = read_boxes(labelpath, &count);
     randomize_boxes(boxes, count);
