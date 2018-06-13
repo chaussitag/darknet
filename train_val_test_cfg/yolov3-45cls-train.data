@@ -1,0 +1,3 @@
+train   = /home/daiguozhou/dataset/od_tencent_wh/od_45cls_data/yolov3/train_image_paths_25396_yolo_25302.txt
+backup  = dagz_45cls_yolov3_saved_weights
+
