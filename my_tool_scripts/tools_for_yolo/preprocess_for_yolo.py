@@ -149,7 +149,7 @@ class PreProcessForYolo(object):
         if fixed_path != path_no_suffix:
             # rename the image
             os.rename(img_path, fixed_path + img_suffix)
-            print("rename %s to %s" % (img_path, fixed_path))
+            print("rename %s to %s" % (img_path, fixed_path + img_suffix))
 
             # rename the xml annotation name
             os.rename(path_no_suffix + ".xml", fixed_path + ".xml")
