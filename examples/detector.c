@@ -363,11 +363,19 @@ void validate_detector_flip(char *datacfg, char *cfgfile, char *weightfile, char
 
 void validate_detector(char *datacfg, char *cfgfile, char *weightfile, char *outfile)
 {
+    printf("validation_detector()\n");
+    printf("datacfg: %s\n", datacfg);
+    printf("cfgfile: %s\n", cfgfile);
+    printf("weightfile: %s\n", weightfile);
+    printf("outfile(prefix): %s\n", outfile);
+
     int j;
     list *options = read_data_cfg(datacfg);
     char *valid_images = option_find_str(options, "valid", "data/train.list");
     char *name_list = option_find_str(options, "names", "data/names.list");
+    printf("label file path: %s\n", name_list);
     char *prefix = option_find_str(options, "results", "results");
+    printf("result dir: %s\n", prefix);
     char **names = get_labels(name_list);
     char *mapf = option_find_str(options, "map", 0);
     int *map = 0;
@@ -383,9 +391,11 @@ void validate_detector(char *datacfg, char *cfgfile, char *weightfile, char *out
 
     layer l = net->layers[net->n-1];
     int classes = l.classes;
+    printf("classes: %d\n", classes);
 
     char buff[1024];
     char *type = option_find_str(options, "eval", "voc");
+    printf("validation type: %s\n", type);
     FILE *fp = 0;
     FILE **fps = 0;
     int coco = 0;
@@ -440,7 +450,7 @@ void validate_detector(char *datacfg, char *cfgfile, char *weightfile, char *out
     }
     double start = what_time_is_it_now();
     for(i = nthreads; i < m+nthreads; i += nthreads){
-        fprintf(stderr, "%d\n", i);
+        //fprintf(stderr, "%d\n", i);
         for(t = 0; t < nthreads && i+t-nthreads < m; ++t){
             pthread_join(thr[t], 0);
             val[t] = buf[t];

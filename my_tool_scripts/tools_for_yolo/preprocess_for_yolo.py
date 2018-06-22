@@ -20,6 +20,8 @@ class PreProcessForYolo(object):
         with open(categories_file, "r") as f:
             self._category_list = [line.strip() for line in f]
 
+        print(self._category_list)
+
         self._valid_images = []
         self._valid_xml_annotations = []
 
