@@ -46,18 +46,17 @@ if __name__ == "__main__":
   label_map_path = os.path.join(output_dir, "label_map.txt")
   label_list_path = os.path.join(output_dir, "label_list.txt")
 
-  with open(label_map_path, "w") as label_map_file:
-    with open(label_list_path, "w") as label_list_file:
-      class_index = 1
-      item_template = """\
+  with open(label_map_path, "w") as label_map_file, open(label_list_path, "w") as label_list_file:
+    class_index = 1
+    item_template = """\
 item {
     id: %d
     name: '%s'
 }
 
 """
-      for category in os.listdir(args.data_dir):
-        if os.path.isdir(os.path.join(args.data_dir, category)):
-          label_list_file.write(category + "\n")
-          label_map_file.write(item_template % (class_index, category))
-          class_index = class_index + 1
+    for category in os.listdir(args.data_dir):
+      if os.path.isdir(os.path.join(args.data_dir, category)):
+        label_list_file.write(category + "\n")
+        label_map_file.write(item_template % (class_index, category))
+        class_index = class_index + 1
